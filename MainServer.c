@@ -35,6 +35,7 @@ int main(int argc, char * argv[]) {
   listen(sockfd, 5);
 
   for ( ; ; ) {
+    memset(&buffer[0], 0, sizeof(buffer));    
     clilen = sizeof(cli_addr);
     newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
 
@@ -52,7 +53,7 @@ int main(int argc, char * argv[]) {
     }
     
     send(newsockfd, buffer, sizeof(buffer), 0);
-    printf("Sent: %s\n",buffer);    
+    printf("Sent: %s\n",buffer);
   }
 
   shutdown(newsockfd, 2);  
