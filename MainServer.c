@@ -29,7 +29,7 @@ int main(int argc, char * argv[]) {
   serv_addr.sin_port = htons(PORT);
 
   if (bind(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0) {
-    printf("Log: Could not bind local address\n"); fflush(stdout);          
+    printf("Info: Could not bind local address\n"); fflush(stdout);          
   }
 
   listen(sockfd, 5);
@@ -41,35 +41,20 @@ int main(int argc, char * argv[]) {
     if (newsockfd < 0) {
       printf("Error: Server accept error\n"); fflush(stdout);
     } else if (newsockfd >= 0) {
-      printf("Log: Made connection\n"); fflush(stdout);            
+      printf("Info: Made connection\n"); fflush(stdout);            
     }
 
     valread = read(newsockfd, buffer, sizeof(buffer));
-    printf("Log: %s\n",buffer);
+    printf("Received: %s\n",buffer);
 
     for (int i = 0; i < strlen(buffer); i++) {
-      printf("before: %s", buffer);
       buffer[i] = toupper(buffer[i]);
-      printf(", after: %s\n", buffer);      
     }
     
     send(newsockfd, buffer, sizeof(buffer), 0);
-    /* if (childpid = fork() < 0) { */
-    /*   printf("Server fork error\n"); fflush(stdout);       */
-    /* } */
-
-    /* char msg[5] = {'h','e','l','l','o'}; */
-
-    /* if (childpid == 0) { */
-    /*   shutdown(sockfd, 2); */
-    /*   //str_echo(newsockfd); */
-    /*   send(newsockfd, msg, 5, 0); */
-    /*   exit(0); */
-    /* } */
-
-    
+    printf("Sent: %s\n",buffer);    
   }
 
   shutdown(newsockfd, 2);  
-  printf("Done!\n"); fflush(stdout);
+  printf("Info: Done!\n"); fflush(stdout);
 }
