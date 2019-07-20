@@ -15,7 +15,7 @@
 int main(int argc, char * argv[]) {
   int sock = 0, valread; 
   struct sockaddr_in serv_addr; 
-  char *msg = "Hello from client"; 
+  char * msg = argv[1]; 
   char buffer[1024] = {0}; 
   if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0) 
     { 
